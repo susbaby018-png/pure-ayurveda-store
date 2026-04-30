@@ -3,216 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ayurvedic Product Showcase</title>
+    <title>Vajikarana Ayurvedic Shop</title>
     <style>
-        :root {
-            --primary: #2d5a27;
-            --accent: #d4af37;
-            --light: #f9fbf8;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light);
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h1 { text-align: center; color: var(--primary); }
-
-        /* Product Grid */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
-            padding: 20px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-            border-radius: 10px;
-        }
-
-        /* Modal / Detailed Layout */
-        #productModal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(255,255,255,0.95);
-            z-index: 1000;
-            overflow-y: auto;
-        }
-
-        .modal-content {
-            display: flex;
-            flex-wrap: wrap;
-            max-width: 1000px;
-            margin: 50px auto;
-            padding: 20px;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .modal-left { flex: 1; min-width: 300px; text-align: center; }
-        .modal-right { flex: 1; min-width: 300px; }
-
-        /* "Little but Big" Animation */
-        .big-img {
-            width: 80%;
-            max-width: 400px;
-            animation: popIn 0.6s cubic-bezier(0.17, 0.89, 0.32, 1.49);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0.4); opacity: 0; }
-            100% { transform: scale(1.1); opacity: 1; }
-        }
-
-        .herb-bg {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            opacity: 0.8;
-        }
-
-        .buy-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            border-radius: 30px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px; right: 30px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: var(--primary);
-        }
-
-        .desc-box {
-            background: #f0f4ef;
-            padding: 15px;
-            border-left: 5px solid var(--primary);
-            margin: 20px 0;
-        }
+        :root { --primary: #2d5a27; --gold: #d4af37; --bg: #f8faf8; }
+        body { font-family: 'Arial', sans-serif; background: var(--bg); margin: 0; padding: 15px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card { background: #fff; padding: 25px; border-radius: 20px; text-align: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; }
+        .card:hover { transform: translateY(-8px); border: 1px solid var(--gold); }
+        .card img { width: 130px; height: auto; margin-bottom: 15px; }
+        
+        /* The Popup Layout */
+        #productDetail { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #fff; z-index: 2000; overflow-y: auto; padding: 20px; box-sizing: border-box; }
+        .pop-animation { animation: littleToBig 0.5s cubic-bezier(0.17, 0.89, 0.32, 1.49) forwards; }
+        @keyframes littleToBig { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        
+        .img-stack { display: flex; flex-direction: column; gap: 25px; align-items: center; max-width: 600px; margin: 0 auto; }
+        .main-img { width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .section-label { color: var(--gold); font-weight: bold; text-transform: uppercase; margin-bottom: 5px; font-size: 0.9rem; }
+        
+        .buy-bar { text-align: center; margin-top: 40px; padding-bottom: 60px; }
+        .buy-btn { background: var(--primary); color: #fff; border: none; padding: 20px; border-radius: 50px; width: 100%; max-width: 450px; font-size: 1.3rem; font-weight: bold; cursor: pointer; }
+        .close { position: fixed; top: 20px; right: 20px; font-size: 35px; cursor: pointer; color: var(--primary); background: white; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Ayurvedic Wellness Collection</h1>
-    <div class="product-grid" id="grid"></div>
-</div>
+    <h1 style="text-align:center; color: var(--primary);">Vajikarana Elite Collection</h1>
+    <div class="grid" id="mainGrid"></div>
 
-<div id="productModal">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <div class="modal-content" id="modalContent"></div>
-</div>
+    <div id="productDetail">
+        <div class="close" onclick="closeBox()">✕</div>
+        <div id="detailBox" class="pop-animation"></div>
+    </div>
 
 <script>
     const products = [
-        { id: 1, name: "Ashwagandha Gold", function: "Stress Relief", desc: "Reduces cortisol and boosts natural energy levels.", color: "#e3e8e3" },
-        { id: 2, name: "Brahmi Focus", function: "Memory Boost", desc: "Enhances cognitive clarity and mental retention.", color: "#f0f4f0" },
-        { id: 3, name: "Triphala Cleanse", function: "Digestion", desc: "Natural detox for colon health and digestion.", color: "#e9eee8" },
-        { id: 4, name: "Neem Purify", function: "Skin Care", desc: "Blood purifier that helps clear acne and skin toxins.", color: "#e3e8e3" },
-        { id: 5, name: "Turmeric Curcumin", function: "Immunity", desc: "Powerful anti-inflammatory and immunity shield.", color: "#fff9e6" },
-        { id: 6, name: "Shatavari Tonic", function: "Vitality", desc: "Balances hormones and supports female health.", color: "#fdf2f2" },
-        { id: 7, name: "Giloy Immunity", function: "Respiration", desc: "Strengthens respiratory health and immunity.", color: "#f4f9f4" },
-        { id: 8, name: "Safed Musli", function: "Strength", desc: "Improves physical stamina and overall vigor.", color: "#f9f9f9" },
-        { id: 9, name: "Arjuna Heart", function: "Cardiac Care", desc: "Supports cardiovascular strength and circulation.", color: "#fdf5f2" },
-        { id: 10, name: "Amla Vitamin C", function: "Antioxidant", desc: "High potency Vitamin C for skin and hair.", color: "#f7faf7" },
-        { id: 11, name: "Tulsi Holy Basil", function: "De-stress", desc: "Relieves cold symptoms and mental fatigue.", color: "#f2f7f2" },
-        { id: 12, name: "Karela Jamun", function: "Sugar Balance", desc: "Helps regulate blood sugar levels naturally.", color: "#f5f9f5" },
-        { id: 13, name: "Bringraj Hair", function: "Hair Growth", desc: "Promotes thick hair and prevents greying.", color: "#f8f8f8" },
-        { id: 14, name: "Kumkumadi Glow", function: "Radiance", desc: "Traditional oil for bright, glowing skin.", color: "#fff9f2" },
-        { id: 15, name: "Shilajit Resin", function: "Endurance", desc: "Pure Himalayan resin for mineral boost.", color: "#f2f2f2" },
-        { id: 16, name: "Guggul Lipids", function: "Weight Mgmt", desc: "Supports healthy metabolism and cholesterol.", color: "#fafaf8" },
-        { id: 17, name: "Manjistha Detox", function: "Lymphatic", desc: "Clears blood and supports lymph drainage.", color: "#fef6f6" },
-        { id: 18, name: "Mulethi Throat", function: "Soothing", desc: "Traditional relief for sore throat and cough.", color: "#fcf9f2" },
-        { id: 19, name: "Vasaka Relief", function: "Lungs", desc: "Eases bronchial congestion and breathing.", color: "#f7faf7" },
-        { id: 20, name: "Moringa Super", function: "Nutrition", desc: "Daily multi-vitamin boost from green leaves.", color: "#f4f8f4" }
+        { name: "Vajri-Force 9X", tags: "Stamina", herbs: "Ashwagandha, Gokshura, Safed Musli, Kaunch Beej, Akarkara, Vidari Kand, Salam Panja" },
+        { name: "Ojas Aura Gold", tags: "Luxury Vigor", herbs: "Swarna Bhasma, Shilajit, Kesar, Mukta Pishti, White Musli, Brahmi, Shatavari" },
+        { name: "Kamadeva Flux", tags: "Blood Flow", herbs: "Jaiphal, Javitri, Lavang, Malkangni, Dalchini, Akarkara, Garlic Extract" },
+        { name: "Saptadhatri Vital", tags: "Body Strength", herbs: "Vidari, Shatavari, Giloy, Ashoka, Gokhru, Bala, Anantmool" },
+        { name: "Rati-Rani Essence", tags: "Female Libido", herbs: "Ashoka, Lodhra, Aloe Vera, Manjistha, Shatavari, Mulethi, Punarnava" },
+        { name: "Stambhan 100", tags: "Endurance", herbs: "Salam Panja, Talmakhana, Beejband, Khareti, Gond Katira, Semal Musli, Kamarkas" },
+        { name: "Urja-Max Resin", tags: "Pure Energy", herbs: "Raw Shilajit, Gold Dust, Fulvic Acid, Humic Acid, Ashwagandha, Triphala, Guggul" },
+        { name: "Veerya-Pushti Plus", tags: "Vital Quality", herbs: "Semal Musli, Varahikand, Gokhru, Shatavari, Ashwagandha, Atibala, Vidari" },
+        { name: "Nagarjuna Nerve Oil", tags: "Sensitivity", herbs: "Bala, Jyotishmati, Malkangni, Jaiphal, Sesame Oil, Ashwagandha, Shatavari" },
+        { name: "Ananda Bliss Caps", tags: "Stress Relief", herbs: "Brahmi, Shankhpushpi, Jatamansi, Vacha, Tagar, Sarpgandha, Ashwagandha" },
+        { name: "Agni-Veda Fire", tags: "Metabolism", herbs: "Pipali, Maricha, Ginger, Cinnamon, Cardamom, Ajwain, Chitrakmool" },
+        { name: "Kasturi-Balam", tags: "Muscle Vigor", herbs: "Lata Kasturi, Ashwagandha, Atibala, Musli, Gokhru, Vidari, Salam Mishri" },
+        { name: "Yuvana Eternal", tags: "Anti-Aging", herbs: "Amla, Guduchi, Tulsi, Neem, Turmeric, Moringa, Wheatgrass" },
+        { name: "Tantra-Flow 360", tags: "Circulation", herbs: "Arjun Bark, Punarnava, Cinnamon, Guggul, Garlic, Gokhru, Pushkarmool" },
+        { name: "Shakti-Sutra 10", tags: "Triple Musli", herbs: "White Musli, Black Musli, Kali Musli, Ashwagandha, Shilajit, Kaunch Beej, Gokhru" },
+        { name: "Prana-Vigor Mint", tags: "Mood Boost", herbs: "Cardamom, Peppermint, Green Tea, Mulethi, Tulsi, Fennel, Shilajit" },
+        { name: "Dhatu-Genic", tags: "Physical Mass", herbs: "Kharonti, Vidhara, Cowhage, Ashwagandha, Shatavari, Musli, Methi Seed" },
+        { name: "Soma-Nectar Drops", tags: "Libido Boost", herbs: "Saffron, Rose, Raw Honey, Sandalwood, Kewra, Ashwagandha, Brahmi" },
+        { name: "Vayu-Shanti Calm", tags: "Anxiety Control", herbs: "Vacha, Sarpgandha, Tagar, Shankhpushpi, Brahmi, Jatamansi, Ashwagandha" },
+        { name: "Maha-Vajra Tablet", tags: "Iron Foundation", herbs: "Abhraka Bhasma, Bang Bhasma, Loh Bhasma, Yashad Bhasma, Shilajit, Musli, Gokhru" }
     ];
 
-    const grid = document.getElementById('grid');
-
-    // Generate 20 Products
-    products.forEach(p => {
+    const grid = document.getElementById('mainGrid');
+    products.forEach((p, i) => {
         const card = document.createElement('div');
-        card.className = 'product-card';
-        card.style.backgroundColor = p.color;
-        card.onclick = () => openProduct(p);
-        card.innerHTML = `
-            <img src="https://via.placeholder.com/200x250/2d5a27/ffffff?text=${p.name}" alt="Bottle">
-            <h3>${p.name}</h3>
-            <p>${p.function}</p>
-        `;
+        card.className = 'card';
+        card.onclick = () => openMe(i);
+        card.innerHTML = `<img src="bottle${i+1}.jpg" onerror="this.src='https://via.placeholder.com/150x200/2d5a27/fff?text=Bottle'"><p><strong>${p.name}</strong></p><p style="color:#666">${p.tags}</p>`;
         grid.appendChild(card);
     });
 
-    function openProduct(p) {
-        const modal = document.getElementById('productModal');
-        const content = document.getElementById('modalContent');
-        
-        content.innerHTML = `
-            <div class="modal-left">
-                <img src="https://via.placeholder.com/400x500/2d5a27/ffffff?text=${p.name}+Bottle" class="big-img" alt="Front Label">
+    function openMe(i) {
+        const p = products[i];
+        const box = document.getElementById('detailBox');
+        box.innerHTML = `
+            <div class="img-stack">
+                <div><div class="section-label">1. Product Label</div>
+                <img src="bottle${i+1}.jpg" class="main-img" onerror="this.src='https://via.placeholder.com/400x500/2d5a27/fff?text=${p.name}+Bottle'"></div>
+                
+                <div><div class="section-label">2. Complex Function</div>
+                <div style="background:#f0f4f0; padding:20px; border-radius:10px; border-left:5px solid var(--primary);">
+                    <p><strong>Main Benefit:</strong> ${p.tags}</p>
+                    <p><strong>The 7-Herb Matrix:</strong><br>${p.herbs}</p>
+                </div></div>
+                
+                <div><div class="section-label">3. Ayurvedic Origins</div>
+                <img src="herb${i+1}.jpg" class="main-img" onerror="this.src='https://via.placeholder.com/400x300/a3b18a/fff?text=Ayurvedic+Herbs+Image'"></div>
             </div>
-            <div class="modal-right">
-                <img src="https://via.placeholder.com/600x200/a3b18a/ffffff?text=Ayurvedic+Herbs+Context" class="herb-bg" alt="Ayurveda Context">
-                
+            <div class="buy-bar">
                 <h2>${p.name}</h2>
-                <div class="desc-box">
-                    <strong>Primary Function:</strong> ${p.function}<br>
-                    <p>${p.desc}</p>
-                </div>
-                
-                <p style="font-size: 1.5rem; color: var(--primary);"><strong>Price: ₹849.00</strong></p>
-                <button class="buy-btn" onclick="alert('Added to Cart!')">ADD TO CART</button>
-                <button class="buy-btn" style="background:#accent; margin-top:10px; background:#8c7326">BUY NOW</button>
+                <button class="buy-btn">ADD TO CART / BUY NOW</button>
             </div>
         `;
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
+        document.getElementById('productDetail').style.display = 'block';
     }
 
-    function closeModal() {
-        document.getElementById('productModal').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
+    function closeBox() { document.getElementById('productDetail').style.display = 'none'; }
 </script>
 
 </body>
 </html>
+
