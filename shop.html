@@ -3,27 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vajikarana Ayurvedic Shop</title>
+    <title>Vajikarana Elite Collection</title>
     <style>
         :root { --primary: #2d5a27; --gold: #d4af37; --bg: #f8faf8; }
         body { font-family: 'Arial', sans-serif; background: var(--bg); margin: 0; padding: 15px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .card { background: #fff; padding: 25px; border-radius: 20px; text-align: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; }
-        .card:hover { transform: translateY(-8px); border: 1px solid var(--gold); }
         .card img { width: 130px; height: auto; margin-bottom: 15px; }
         
-        /* The Popup Layout */
-        #productDetail { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #fff; z-index: 2000; overflow-y: auto; padding: 20px; box-sizing: border-box; }
-        .pop-animation { animation: littleToBig 0.5s cubic-bezier(0.17, 0.89, 0.32, 1.49) forwards; }
-        @keyframes littleToBig { 0% { transform: scale(0.6); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        /* Full Screen Overlay */
+        #productDetail { 
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            background: #fff; 
+            z-index: 2000; 
+            overflow-y: auto; 
+            padding: 20px; 
+            box-sizing: border-box; 
+        }
+
+        .pop-animation { animation: littleToBig 0.4s cubic-bezier(0.17, 0.89, 0.32, 1.49) forwards; }
+        @keyframes littleToBig { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         
         .img-stack { display: flex; flex-direction: column; gap: 25px; align-items: center; max-width: 600px; margin: 0 auto; }
         .main-img { width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .section-label { color: var(--gold); font-weight: bold; text-transform: uppercase; margin-bottom: 5px; font-size: 0.9rem; }
+        .section-label { color: var(--gold); font-weight: bold; text-transform: uppercase; margin-bottom: 5px; font-size: 0.9rem; text-align: center; }
         
         .buy-bar { text-align: center; margin-top: 40px; padding-bottom: 60px; }
         .buy-btn { background: var(--primary); color: #fff; border: none; padding: 20px; border-radius: 50px; width: 100%; max-width: 450px; font-size: 1.3rem; font-weight: bold; cursor: pointer; }
-        .close { position: fixed; top: 20px; right: 20px; font-size: 35px; cursor: pointer; color: var(--primary); background: white; border-radius: 50%; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 10px rgba(0,0,0,0.1); }
+        
+        /* Improved X Button */
+        .close { 
+            position: sticky; top: 0; float: right;
+            font-size: 30px; cursor: pointer; color: var(--primary); 
+            background: white; border-radius: 50%; width: 45px; height: 45px; 
+            display: flex; align-items: center; justify-content: center; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 2100;
+        }
     </style>
 </head>
 <body>
@@ -32,7 +50,7 @@
     <div class="grid" id="mainGrid"></div>
 
     <div id="productDetail">
-        <div class="close" onclick="closeBox()">✕</div>
+        <div class="close" onclick="goBack()">✕</div>
         <div id="detailBox" class="pop-animation"></div>
     </div>
 
@@ -64,14 +82,18 @@
     products.forEach((p, i) => {
         const card = document.createElement('div');
         card.className = 'card';
-        card.onclick = () => openMe(i);
+        card.onclick = () => openProduct(i);
         card.innerHTML = `<img src="bottle${i+1}.jpg" onerror="this.src='https://via.placeholder.com/150x200/2d5a27/fff?text=Bottle'"><p><strong>${p.name}</strong></p><p style="color:#666">${p.tags}</p>`;
         grid.appendChild(card);
     });
 
-    function openMe(i) {
+    function openProduct(i) {
         const p = products[i];
         const box = document.getElementById('detailBox');
+        
+        // Push a new state so the hardware BACK button works
+        window.history.pushState({view: 'detail'}, '');
+
         box.innerHTML = `
             <div class="img-stack">
                 <div><div class="section-label">1. Product Label</div>
@@ -92,11 +114,31 @@
             </div>
         `;
         document.getElementById('productDetail').style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Stop background scrolling
     }
 
-    function closeBox() { document.getElementById('productDetail').style.display = 'none'; }
+    // This function handles the X button
+    function goBack() {
+        if(window.history.state && window.history.state.view === 'detail') {
+            window.history.back();
+        } else {
+            closeBox();
+        }
+    }
+
+    // This closes the UI
+    function closeBox() {
+        document.getElementById('productDetail').style.display = 'none';
+        document.body.style.overflow = 'auto'; // Re-enable scrolling
+    }
+
+    // Listen for the REAL phone back button
+    window.onpopstate = function(event) {
+        closeBox();
+    };
 </script>
 
 </body>
 </html>
+
 
