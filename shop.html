@@ -4,57 +4,73 @@
 <title>Shop - Pure Ayurveda</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header>
-<h1>Pure Ayurveda Store</h1>
+<h1>Pure Ayurveda</h1>
+<nav>
 <a href="index.html">Home</a>
+<a href="shop.html">Shop</a>
+</nav>
 </header>
 
-<div class="products">
+<h2 class="center">Our Products</h2>
 
-<!-- PRODUCT 1 -->
-<div class="product"><h3>Shilajit Gold Resin</h3><p>€39</p><button>Buy with PayPal</button></div>
+<div id="products" class="grid"></div>
 
-<div class="product"><h3>Ashwagandha Power Capsules</h3><p>€24</p><button>Buy with PayPal</button></div>
+<script>
+const products = [
+{
+name:"Shilajit Gold Resin",
+price:39,
+img:"https://images.unsplash.com/photo-1615485291234-7e2f8e0c7c5d"
+},
+{
+name:"Ashwagandha Capsules",
+price:24,
+img:"https://images.unsplash.com/photo-1580281657527-47a4dcb11f8f"
+},
+{
+name:"Libido Boost",
+price:29,
+img:"https://images.unsplash.com/photo-1600180758890-6b94519a8ba6"
+},
+{
+name:"Testosterone Support",
+price:34,
+img:"https://images.unsplash.com/photo-1611078489935-0cb964de46d6"
+},
+{
+name:"Energy Booster",
+price:27,
+img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae"
+},
+{
+name:"Performance Capsules",
+price:31,
+img:"https://images.unsplash.com/photo-1615485737651-9f9e3b2a644d"
+},
+{
+name:"Herbal Power Mix",
+price:22,
+img:"https://images.unsplash.com/photo-1615486363299-5c96e65e6a85"
+}
+];
 
-<div class="product"><h3>Herbal Stamina Booster</h3><p>€29</p><button>Buy with PayPal</button></div>
+const grid=document.getElementById("products");
 
-<div class="product"><h3>Ayurvedic Testosterone Support</h3><p>€34</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Herbal Energy Drops</h3><p>€19</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Libido Boost Capsules</h3><p>€27</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Vitality Herbal Tea</h3><p>€14</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Horny Goat Weed Complex</h3><p>€32</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Confidence Formula</h3><p>€26</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Premium Shilajit Capsules</h3><p>€36</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Maca Root Blend</h3><p>€21</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Performance Gummies</h3><p>€18</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Endurance Mix</h3><p>€28</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Night Support Formula</h3><p>€23</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Vital Man Daily</h3><p>€31</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Stress Relief Drops</h3><p>€17</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Ultra Energy Capsules</h3><p>€25</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Natural Strength Powder</h3><p>€22</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Ancient Vitality Blend</h3><p>€33</p><button>Buy with PayPal</button></div>
-
-<div class="product"><h3>Ayurvedic Power Tonic</h3><p>€29</p><button>Buy with PayPal</button></div>
-
+products.forEach(p=>{
+grid.innerHTML+=`
+<div class="card">
+<img src="${p.img}">
+<h3>${p.name}</h3>
+<p>$${p.price}</p>
+<button>Buy with PayPal</button>
 </div>
-<script src="script.js"></script>
+`;
+});
+</script>
+
 </body>
 </html>
