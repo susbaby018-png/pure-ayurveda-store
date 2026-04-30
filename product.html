@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Product - Pure Ayurveda</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h1>Pure Ayurveda</h1>
+<a href="shop.html">⬅ Back to Shop</a>
+</header>
+
+<div class="product-page">
+
+<img src="https://images.unsplash.com/photo-1584305574647-0cc949a2bb9f">
+<img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d">
+<img src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04">
+
+<h2 id="productName"></h2>
+
+<p>
+Premium Ayurvedic formulation designed to improve stamina,
+boost libido, enhance testosterone and increase natural energy.
+Made using ancient herbal ingredients and traditional Ayurveda science.
+</p>
+
+<button class="buy">Buy with PayPal</button>
+
+</div>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+document.getElementById("productName").innerText = urlParams.get("name");
+</script>
+
+</body>
+</html>
