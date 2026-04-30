@@ -2,143 +2,135 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vajikarana Elite Collection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Shop | Pure Ayurveda</title>
+    <link rel="stylesheet" href="style.css">
     <style>
-        :root { --primary: #2d5a27; --gold: #d4af37; --bg: #f8faf8; }
-        body { font-family: 'Arial', sans-serif; background: var(--bg); margin: 0; padding: 15px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: #fff; padding: 25px; border-radius: 20px; text-align: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; }
-        .card img { width: 130px; height: auto; margin-bottom: 15px; }
+        /* Mobile-First Shop Styling */
+        body { background: #fdfbf7; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .shop-container { padding: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         
-        /* Full Screen Overlay */
-        #productDetail { 
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            background: #fff; 
-            z-index: 2000; 
-            overflow-y: auto; 
-            padding: 20px; 
-            box-sizing: border-box; 
+        .product-card { 
+            background: white; border-radius: 12px; overflow: hidden; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; padding-bottom: 15px;
+        }
+        .product-card img { width: 100%; height: auto; display: block; }
+        .product-card h3 { font-size: 0.9rem; margin: 10px 5px 5px; color: #2c3e50; }
+        .product-card p { font-size: 0.75rem; color: #d4af37; font-weight: bold; margin: 0; }
+
+        /* Modal / Popup Styling */
+        .modal { 
+            display: none; position: fixed; z-index: 1000; left: 0; top: 0; 
+            width: 100%; height: 100%; background: rgba(0,0,0,0.8); overflow-y: auto;
+        }
+        .modal-content { 
+            background: #fff; margin: 0 auto; width: 100%; max-width: 500px; 
+            min-height: 100%; position: relative; padding-bottom: 80px;
+        }
+        .close-btn { 
+            position: fixed; right: 15px; top: 15px; font-size: 30px; 
+            color: #333; background: white; border-radius: 50%; width: 40px; 
+            height: 40px; line-height: 38px; text-align: center; z-index: 1010; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        .pop-animation { animation: littleToBig 0.4s cubic-bezier(0.17, 0.89, 0.32, 1.49) forwards; }
-        @keyframes littleToBig { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-        
-        .img-stack { display: flex; flex-direction: column; gap: 25px; align-items: center; max-width: 600px; margin: 0 auto; }
-        .main-img { width: 100%; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .section-label { color: var(--gold); font-weight: bold; text-transform: uppercase; margin-bottom: 5px; font-size: 0.9rem; text-align: center; }
-        
-        .buy-bar { text-align: center; margin-top: 40px; padding-bottom: 60px; }
-        .buy-btn { background: var(--primary); color: #fff; border: none; padding: 20px; border-radius: 50px; width: 100%; max-width: 450px; font-size: 1.3rem; font-weight: bold; cursor: pointer; }
-        
-        /* Improved X Button */
-        .close { 
-            position: sticky; top: 0; float: right;
-            font-size: 30px; cursor: pointer; color: var(--primary); 
-            background: white; border-radius: 50%; width: 45px; height: 45px; 
-            display: flex; align-items: center; justify-content: center; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 2100;
+        .section-container { padding: 15px 15px 0; }
+        .section-label { 
+            font-size: 11px; font-weight: bold; color: #d4af37; 
+            letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase;
+        }
+        .main-img { width: 100%; border-radius: 8px; display: block; margin-bottom: 10px; }
+
+        .buy-bar { 
+            position: fixed; bottom: 0; width: 100%; max-width: 500px; 
+            background: white; padding: 15px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;
+        }
+        .buy-bar h2 { font-size: 1.1rem; margin: 0; color: #2c3e50; }
+        .buy-btn { 
+            background: #1a472a; color: white; border: none; padding: 12px 20px; 
+            border-radius: 6px; font-weight: bold; font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-    <h1 style="text-align:center; color: var(--primary);">Vajikarana Elite Collection</h1>
-    <div class="grid" id="mainGrid"></div>
+    <div class="shop-container" id="shopGrid">
+        </div>
 
-    <div id="productDetail">
-        <div class="close" onclick="goBack()">✕</div>
-        <div id="detailBox" class="pop-animation"></div>
+    <div id="productModal" class="modal">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div class="modal-content" id="modalBody">
+            </div>
     </div>
 
-<script>
-    const products = [
-        { name: "Vajri-Force 9X", tags: "Stamina", herbs: "Ashwagandha, Gokshura, Safed Musli, Kaunch Beej, Akarkara, Vidari Kand, Salam Panja" },
-        { name: "Ojas Aura Gold", tags: "Luxury Vigor", herbs: "Swarna Bhasma, Shilajit, Kesar, Mukta Pishti, White Musli, Brahmi, Shatavari" },
-        { name: "Kamadeva Flux", tags: "Blood Flow", herbs: "Jaiphal, Javitri, Lavang, Malkangni, Dalchini, Akarkara, Garlic Extract" },
-        { name: "Saptadhatri Vital", tags: "Body Strength", herbs: "Vidari, Shatavari, Giloy, Ashoka, Gokhru, Bala, Anantmool" },
-        { name: "Rati-Rani Essence", tags: "Female Libido", herbs: "Ashoka, Lodhra, Aloe Vera, Manjistha, Shatavari, Mulethi, Punarnava" },
-        { name: "Stambhan 100", tags: "Endurance", herbs: "Salam Panja, Talmakhana, Beejband, Khareti, Gond Katira, Semal Musli, Kamarkas" },
-        { name: "Urja-Max Resin", tags: "Pure Energy", herbs: "Raw Shilajit, Gold Dust, Fulvic Acid, Humic Acid, Ashwagandha, Triphala, Guggul" },
-        { name: "Veerya-Pushti Plus", tags: "Vital Quality", herbs: "Semal Musli, Varahikand, Gokhru, Shatavari, Ashwagandha, Atibala, Vidari" },
-        { name: "Nagarjuna Nerve Oil", tags: "Sensitivity", herbs: "Bala, Jyotishmati, Malkangni, Jaiphal, Sesame Oil, Ashwagandha, Shatavari" },
-        { name: "Ananda Bliss Caps", tags: "Stress Relief", herbs: "Brahmi, Shankhpushpi, Jatamansi, Vacha, Tagar, Sarpgandha, Ashwagandha" },
-        { name: "Agni-Veda Fire", tags: "Metabolism", herbs: "Pipali, Maricha, Ginger, Cinnamon, Cardamom, Ajwain, Chitrakmool" },
-        { name: "Kasturi-Balam", tags: "Muscle Vigor", herbs: "Lata Kasturi, Ashwagandha, Atibala, Musli, Gokhru, Vidari, Salam Mishri" },
-        { name: "Yuvana Eternal", tags: "Anti-Aging", herbs: "Amla, Guduchi, Tulsi, Neem, Turmeric, Moringa, Wheatgrass" },
-        { name: "Tantra-Flow 360", tags: "Circulation", herbs: "Arjun Bark, Punarnava, Cinnamon, Guggul, Garlic, Gokhru, Pushkarmool" },
-        { name: "Shakti-Sutra 10", tags: "Triple Musli", herbs: "White Musli, Black Musli, Kali Musli, Ashwagandha, Shilajit, Kaunch Beej, Gokhru" },
-        { name: "Prana-Vigor Mint", tags: "Mood Boost", herbs: "Cardamom, Peppermint, Green Tea, Mulethi, Tulsi, Fennel, Shilajit" },
-        { name: "Dhatu-Genic", tags: "Physical Mass", herbs: "Kharonti, Vidhara, Cowhage, Ashwagandha, Shatavari, Musli, Methi Seed" },
-        { name: "Soma-Nectar Drops", tags: "Libido Boost", herbs: "Saffron, Rose, Raw Honey, Sandalwood, Kewra, Ashwagandha, Brahmi" },
-        { name: "Vayu-Shanti Calm", tags: "Anxiety Control", herbs: "Vacha, Sarpgandha, Tagar, Shankhpushpi, Brahmi, Jatamansi, Ashwagandha" },
-        { name: "Maha-Vajra Tablet", tags: "Iron Foundation", herbs: "Abhraka Bhasma, Bang Bhasma, Loh Bhasma, Yashad Bhasma, Shilajit, Musli, Gokhru" }
-    ];
+    <script>
+        const products = [
+            { name: "Vajri-Force 9X", price: "Premium Rasayana" },
+            { name: "Ojas Aura Gold", price: "Luxury Vigor" }
+        ];
 
-    const grid = document.getElementById('mainGrid');
-    products.forEach((p, i) => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.onclick = () => openProduct(i);
-        card.innerHTML = `<img src="bottle${i+1}.jpg" onerror="this.src='https://via.placeholder.com/150x200/2d5a27/fff?text=Bottle'"><p><strong>${p.name}</strong></p><p style="color:#666">${p.tags}</p>`;
-        grid.appendChild(card);
-    });
-
-    function openProduct(i) {
-        const p = products[i];
-        const box = document.getElementById('detailBox');
-        
-        // Push a new state so the hardware BACK button works
-        window.history.pushState({view: 'detail'}, '');
-
-        box.innerHTML = `
-            <div class="img-stack">
-                <div><div class="section-label">1. Product Label</div>
-                <img src="bottle${i+1}.jpg" class="main-img" onerror="this.src='https://via.placeholder.com/400x500/2d5a27/fff?text=${p.name}+Bottle'"></div>
-                
-                <div><div class="section-label">2. Complex Function</div>
-                <div style="background:#f0f4f0; padding:20px; border-radius:10px; border-left:5px solid var(--primary);">
-                    <p><strong>Main Benefit:</strong> ${p.tags}</p>
-                    <p><strong>The 7-Herb Matrix:</strong><br>${p.herbs}</p>
-                </div></div>
-                
-                <div><div class="section-label">3. Ayurvedic Origins</div>
-                <img src="herb${i+1}.jpg" class="main-img" onerror="this.src='https://via.placeholder.com/400x300/a3b18a/fff?text=Ayurvedic+Herbs+Image'"></div>
-            </div>
-            <div class="buy-bar">
-                <h2>${p.name}</h2>
-                <button class="buy-btn">ADD TO CART / BUY NOW</button>
-            </div>
-        `;
-        document.getElementById('productDetail').style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Stop background scrolling
-    }
-
-    // This function handles the X button
-    function goBack() {
-        if(window.history.state && window.history.state.view === 'detail') {
-            window.history.back();
-        } else {
-            closeBox();
+        function initShop() {
+            const grid = document.getElementById('shopGrid');
+            products.forEach((p, i) => {
+                grid.innerHTML += `
+                    <div class="product-card" onclick="openProduct(${i})">
+                        <img src="bottle${i+1}.jpg" alt="${p.name}">
+                        <h3>${p.name}</h3>
+                        <p>${p.price}</p>
+                    </div>
+                `;
+            });
         }
-    }
 
-    // This closes the UI
-    function closeBox() {
-        document.getElementById('productDetail').style.display = 'none';
-        document.body.style.overflow = 'auto'; // Re-enable scrolling
-    }
+        function openProduct(i) {
+            const p = products[i];
+            const modal = document.getElementById('productModal');
+            const box = document.getElementById('modalBody');
+            
+            // i+1 makes product 0 use image 1, product 1 use image 2
+            const imgNum = i + 1;
 
-    // Listen for the REAL phone back button
-    window.onpopstate = function(event) {
-        closeBox();
-    };
-</script>
+            box.innerHTML = `
+                <div class="img-stack">
+                    <div class="section-container">
+                        <div class="section-label">1. Product View</div>
+                        <img src="bottle${imgNum}.jpg" class="main-img" onerror="this.src='https://via.placeholder.com/500?text=Image+Coming+Soon'">
+                    </div>
+                    
+                    <div class="section-container">
+                        <div class="section-label">2. Key Benefits</div>
+                        <img src="desc${imgNum}.jpg" class="main-img" onerror="this.style.display='none'">
+                    </div>
+                    
+                    <div class="section-container">
+                        <div class="section-label">3. Ayurvedic Origins</div>
+                        <img src="herb${imgNum}.jpg" class="main-img" onerror="this.style.display='none'">
+                    </div>
+                </div>
 
+                <div class="buy-bar">
+                    <div>
+                        <h2>${p.name}</h2>
+                        <span style="font-size: 12px; color: #d4af37;">Pure Ayurveda Certified</span>
+                    </div>
+                    <button class="buy-btn" onclick="alert('Order Feature Coming Soon!')">BUY NOW</button>
+                </div>
+            `;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Stop background scrolling
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('productModal');
+            if (event.target == modal) closeModal();
+        }
+
+        initShop();
+    </script>
 </body>
 </html>
-
-
