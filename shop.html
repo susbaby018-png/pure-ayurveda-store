@@ -1,47 +1,218 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Shop - Pure Ayurveda</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayurvedic Product Showcase</title>
+    <style>
+        :root {
+            --primary: #2d5a27;
+            --accent: #d4af37;
+            --light: #f9fbf8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 { text-align: center; color: var(--primary); }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            padding: 20px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        /* Modal / Detailed Layout */
+        #productModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(255,255,255,0.95);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .modal-left { flex: 1; min-width: 300px; text-align: center; }
+        .modal-right { flex: 1; min-width: 300px; }
+
+        /* "Little but Big" Animation */
+        .big-img {
+            width: 80%;
+            max-width: 400px;
+            animation: popIn 0.6s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.4); opacity: 0; }
+            100% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .herb-bg {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .buy-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        .desc-box {
+            background: #f0f4ef;
+            padding: 15px;
+            border-left: 5px solid var(--primary);
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-<h1>Pure Ayurveda</h1>
-<nav>
-<a href="index.html">Home</a>
-<a href="shop.html">Shop</a>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-</nav>
-</header>
-
-<h2 style="text-align:center">Our Products</h2>
-
-<div class="grid">
-
-<a href="product.html?name=Shilajit Gold Resin" class="card"><h3>Shilajit Gold Resin</h3><p>$39</p></a>
-<a href="product.html?name=Ashwagandha Power" class="card"><h3>Ashwagandha Power</h3><p>$24</p></a>
-<a href="product.html?name=Libido Booster" class="card"><h3>Libido Booster</h3><p>$29</p></a>
-<a href="product.html?name=Performance Mix" class="card"><h3>Performance Mix</h3><p>$31</p></a>
-<a href="product.html?name=Testosterone Support" class="card"><h3>Testosterone Support</h3><p>$34</p></a>
-<a href="product.html?name=Vitality Capsules" class="card"><h3>Vitality Capsules</h3><p>$26</p></a>
-<a href="product.html?name=Energy Herbs" class="card"><h3>Energy Herbs</h3><p>$28</p></a>
-<a href="product.html?name=Men Strength Oil" class="card"><h3>Men Strength Oil</h3><p>$22</p></a>
-<a href="product.html?name=Stamina Booster" class="card"><h3>Stamina Booster</h3><p>$27</p></a>
-<a href="product.html?name=Night Power Mix" class="card"><h3>Night Power Mix</h3><p>$32</p></a>
-
-<a href="product.html?name=Ayurveda Power Tonic" class="card"><h3>Ayurveda Power Tonic</h3><p>$35</p></a>
-<a href="product.html?name=Male Vital Oil" class="card"><h3>Male Vital Oil</h3><p>$23</p></a>
-<a href="product.html?name=Herbal Energy Drops" class="card"><h3>Herbal Energy Drops</h3><p>$30</p></a>
-<a href="product.html?name=Royal Shilajit Blend" class="card"><h3>Royal Shilajit Blend</h3><p>$42</p></a>
-<a href="product.html?name=Couple Vitality Pack" class="card"><h3>Couple Vitality Pack</h3><p>$45</p></a>
-<a href="product.html?name=Ayurvedic Mood Booster" class="card"><h3>Ayurvedic Mood Booster</h3><p>$25</p></a>
-<a href="product.html?name=Herbal Relax Capsules" class="card"><h3>Herbal Relax Capsules</h3><p>$21</p></a>
-<a href="product.html?name=Ayurvedic Mass Gainer" class="card"><h3>Ayurvedic Mass Gainer</h3><p>$38</p></a>
-<a href="product.html?name=Energy Roots Blend" class="card"><h3>Energy Roots Blend</h3><p>$29</p></a>
-<a href="product.html?name=Ultimate Vital Kit" class="card"><h3>Ultimate Vital Kit</h3><p>$49</p></a>
-
+<div class="container">
+    <h1>Ayurvedic Wellness Collection</h1>
+    <div class="product-grid" id="grid"></div>
 </div>
+
+<div id="productModal">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div class="modal-content" id="modalContent"></div>
+</div>
+
+<script>
+    const products = [
+        { id: 1, name: "Ashwagandha Gold", function: "Stress Relief", desc: "Reduces cortisol and boosts natural energy levels.", color: "#e3e8e3" },
+        { id: 2, name: "Brahmi Focus", function: "Memory Boost", desc: "Enhances cognitive clarity and mental retention.", color: "#f0f4f0" },
+        { id: 3, name: "Triphala Cleanse", function: "Digestion", desc: "Natural detox for colon health and digestion.", color: "#e9eee8" },
+        { id: 4, name: "Neem Purify", function: "Skin Care", desc: "Blood purifier that helps clear acne and skin toxins.", color: "#e3e8e3" },
+        { id: 5, name: "Turmeric Curcumin", function: "Immunity", desc: "Powerful anti-inflammatory and immunity shield.", color: "#fff9e6" },
+        { id: 6, name: "Shatavari Tonic", function: "Vitality", desc: "Balances hormones and supports female health.", color: "#fdf2f2" },
+        { id: 7, name: "Giloy Immunity", function: "Respiration", desc: "Strengthens respiratory health and immunity.", color: "#f4f9f4" },
+        { id: 8, name: "Safed Musli", function: "Strength", desc: "Improves physical stamina and overall vigor.", color: "#f9f9f9" },
+        { id: 9, name: "Arjuna Heart", function: "Cardiac Care", desc: "Supports cardiovascular strength and circulation.", color: "#fdf5f2" },
+        { id: 10, name: "Amla Vitamin C", function: "Antioxidant", desc: "High potency Vitamin C for skin and hair.", color: "#f7faf7" },
+        { id: 11, name: "Tulsi Holy Basil", function: "De-stress", desc: "Relieves cold symptoms and mental fatigue.", color: "#f2f7f2" },
+        { id: 12, name: "Karela Jamun", function: "Sugar Balance", desc: "Helps regulate blood sugar levels naturally.", color: "#f5f9f5" },
+        { id: 13, name: "Bringraj Hair", function: "Hair Growth", desc: "Promotes thick hair and prevents greying.", color: "#f8f8f8" },
+        { id: 14, name: "Kumkumadi Glow", function: "Radiance", desc: "Traditional oil for bright, glowing skin.", color: "#fff9f2" },
+        { id: 15, name: "Shilajit Resin", function: "Endurance", desc: "Pure Himalayan resin for mineral boost.", color: "#f2f2f2" },
+        { id: 16, name: "Guggul Lipids", function: "Weight Mgmt", desc: "Supports healthy metabolism and cholesterol.", color: "#fafaf8" },
+        { id: 17, name: "Manjistha Detox", function: "Lymphatic", desc: "Clears blood and supports lymph drainage.", color: "#fef6f6" },
+        { id: 18, name: "Mulethi Throat", function: "Soothing", desc: "Traditional relief for sore throat and cough.", color: "#fcf9f2" },
+        { id: 19, name: "Vasaka Relief", function: "Lungs", desc: "Eases bronchial congestion and breathing.", color: "#f7faf7" },
+        { id: 20, name: "Moringa Super", function: "Nutrition", desc: "Daily multi-vitamin boost from green leaves.", color: "#f4f8f4" }
+    ];
+
+    const grid = document.getElementById('grid');
+
+    // Generate 20 Products
+    products.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.style.backgroundColor = p.color;
+        card.onclick = () => openProduct(p);
+        card.innerHTML = `
+            <img src="https://via.placeholder.com/200x250/2d5a27/ffffff?text=${p.name}" alt="Bottle">
+            <h3>${p.name}</h3>
+            <p>${p.function}</p>
+        `;
+        grid.appendChild(card);
+    });
+
+    function openProduct(p) {
+        const modal = document.getElementById('productModal');
+        const content = document.getElementById('modalContent');
+        
+        content.innerHTML = `
+            <div class="modal-left">
+                <img src="https://via.placeholder.com/400x500/2d5a27/ffffff?text=${p.name}+Bottle" class="big-img" alt="Front Label">
+            </div>
+            <div class="modal-right">
+                <img src="https://via.placeholder.com/600x200/a3b18a/ffffff?text=Ayurvedic+Herbs+Context" class="herb-bg" alt="Ayurveda Context">
+                
+                <h2>${p.name}</h2>
+                <div class="desc-box">
+                    <strong>Primary Function:</strong> ${p.function}<br>
+                    <p>${p.desc}</p>
+                </div>
+                
+                <p style="font-size: 1.5rem; color: var(--primary);"><strong>Price: ₹849.00</strong></p>
+                <button class="buy-btn" onclick="alert('Added to Cart!')">ADD TO CART</button>
+                <button class="buy-btn" style="background:#accent; margin-top:10px; background:#8c7326">BUY NOW</button>
+            </div>
+        `;
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('productModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+</script>
+
 </body>
 </html>
