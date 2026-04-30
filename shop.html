@@ -12,65 +12,69 @@
 <nav>
 <a href="index.html">Home</a>
 <a href="shop.html">Shop</a>
+<a href="about.html">About</a>
+<a href="contact.html">Contact</a>
 </nav>
 </header>
 
 <h2 class="center">Our Products</h2>
 
-<div id="products" class="grid"></div>
+<div class="grid">
 
-<script>
-const products = [
-{
-name:"Shilajit Gold Resin",
-price:39,
-img:"https://images.unsplash.com/photo-1615485291234-7e2f8e0c7c5d"
-},
-{
-name:"Ashwagandha Capsules",
-price:24,
-img:"https://images.unsplash.com/photo-1580281657527-47a4dcb11f8f"
-},
-{
-name:"Libido Boost",
-price:29,
-img:"https://images.unsplash.com/photo-1600180758890-6b94519a8ba6"
-},
-{
-name:"Testosterone Support",
-price:34,
-img:"https://images.unsplash.com/photo-1611078489935-0cb964de46d6"
-},
-{
-name:"Energy Booster",
-price:27,
-img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae"
-},
-{
-name:"Performance Capsules",
-price:31,
-img:"https://images.unsplash.com/photo-1615485737651-9f9e3b2a644d"
-},
-{
-name:"Herbal Power Mix",
-price:22,
-img:"https://images.unsplash.com/photo-1615486363299-5c96e65e6a85"
-}
-];
-
-const grid=document.getElementById("products");
-
-products.forEach(p=>{
-grid.innerHTML+=`
 <div class="card">
-<img src="${p.img}">
-<h3>${p.name}</h3>
-<p>$${p.price}</p>
-<button>Buy with PayPal</button>
+<img src="https://images.unsplash.com/photo-1615485291234-7e2f8e0c7c5d">
+<h3>Shilajit Gold Resin</h3>
+<p>$39</p>
+<button>Pay with PayPal</button>
 </div>
-`;
-});
-</script>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1580281657527-47a4dcb11f8f">
+<h3>Ashwagandha Capsules</h3>
+<p>$24</p>
+<button>Pay with PayPal</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6">
+<h3>Libido Boost Capsules</h3>
+<p>$29</p>
+<button>Pay with PayPal</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1611078489935-0cb964de46d6">
+<h3>Testosterone Support</h3>
+<p>$34</p>
+<button>Pay with PayPal</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae">
+<h3>Energy Booster</h3>
+<p>$27</p>
+<button>Pay with PayPal</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1615485737651-9f9e3b2a644d">
+<h3>Performance Capsules</h3>
+<p>$31</p>
+<button>Pay with PayPal</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1615486363299-5c96e65e6a85">
+<h3>Herbal Power Mix</h3>
+<p>$22</p>
+<button>Pay with PayPal</button>
+</div>
+
+</div>
+
+<footer class="footer">
+<p>© Pure Ayurveda</p>
+</footer>
 
 </body>
 </html>
