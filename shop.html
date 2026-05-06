@@ -6,67 +6,93 @@
     <title>Shop | Pure Ayurveda</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Mobile-First Shop Styling */
-        body { background: #fdfbf7; margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .shop-container { padding: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        body { background: #fdfbf7; margin: 0; font-family: sans-serif; -webkit-tap-highlight-color: transparent; }
+        .shop-container { padding: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         
         .product-card { 
             background: white; border-radius: 12px; overflow: hidden; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; padding-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; padding-bottom: 12px;
         }
-        .product-card img { width: 100%; height: auto; display: block; }
-        .product-card h3 { font-size: 0.9rem; margin: 10px 5px 5px; color: #2c3e50; }
-        .product-card p { font-size: 0.75rem; color: #d4af37; font-weight: bold; margin: 0; }
+        .product-card img { width: 100%; height: auto; aspect-ratio: 1/1; object-fit: cover; }
+        .product-card h3 { font-size: 0.85rem; margin: 8px 5px 2px; color: #2c3e50; }
+        .product-card p { font-size: 0.7rem; color: #d4af37; font-weight: bold; margin: 0; }
 
-        /* Modal / Popup Styling */
         .modal { 
             display: none; position: fixed; z-index: 1000; left: 0; top: 0; 
-            width: 100%; height: 100%; background: rgba(0,0,0,0.8); overflow-y: auto;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.9); overflow-y: auto;
         }
         .modal-content { 
             background: #fff; margin: 0 auto; width: 100%; max-width: 500px; 
-            min-height: 100%; position: relative; padding-bottom: 80px;
+            min-height: 100%; position: relative; padding-bottom: 90px;
         }
         .close-btn { 
             position: fixed; right: 15px; top: 15px; font-size: 30px; 
             color: #333; background: white; border-radius: 50%; width: 40px; 
-            height: 40px; line-height: 38px; text-align: center; z-index: 1010; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            height: 40px; line-height: 38px; text-align: center; z-index: 1010;
         }
 
         .section-container { padding: 15px 15px 0; }
-        .section-label { 
-            font-size: 11px; font-weight: bold; color: #d4af37; 
-            letter-spacing: 1px; margin-bottom: 8px; text-transform: uppercase;
-        }
-        .main-img { width: 100%; border-radius: 8px; display: block; margin-bottom: 10px; }
+        .section-label { font-size: 10px; font-weight: bold; color: #d4af37; letter-spacing: 1px; margin-bottom: 5px; }
+        .main-img { width: 100%; border-radius: 6px; display: block; margin-bottom: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
 
         .buy-bar { 
             position: fixed; bottom: 0; width: 100%; max-width: 500px; 
             background: white; padding: 15px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
             display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;
         }
-        .buy-bar h2 { font-size: 1.1rem; margin: 0; color: #2c3e50; }
-        .buy-btn { 
-            background: #1a472a; color: white; border: none; padding: 12px 20px; 
-            border-radius: 6px; font-weight: bold; font-size: 0.9rem;
-        }
+        .buy-btn { background: #1a472a; color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="shop-container" id="shopGrid">
-        </div>
+    <div class="shop-container" id="shopGrid"></div>
 
     <div id="productModal" class="modal">
         <span class="close-btn" onclick="closeModal()">&times;</span>
-        <div class="modal-content" id="modalBody">
-            </div>
+        <div class="modal-content" id="modalBody"></div>
     </div>
 
     <script>
+        // List of 38 Products
         const products = [
-            { name: "Vajri-Force 9X", price: "Premium Rasayana" },
-            { name: "Ojas Aura Gold", price: "Luxury Vigor" }
+            { name: "Vajri-Force 9X", price: "Premium Vigor" },
+            { name: "Ojas Aura Gold", price: "Luxury Rasayana" },
+            { name: "Product 3", price: "Ayurvedic Blend" },
+            { name: "Product 4", price: "Ayurvedic Blend" },
+            { name: "Product 5", price: "Ayurvedic Blend" },
+            { name: "Product 6", price: "Ayurvedic Blend" },
+            { name: "Product 7", price: "Ayurvedic Blend" },
+            { name: "Product 8", price: "Ayurvedic Blend" },
+            { name: "Product 9", price: "Ayurvedic Blend" },
+            { name: "Product 10", price: "Ayurvedic Blend" },
+            { name: "Product 11", price: "Ayurvedic Blend" },
+            { name: "Product 12", price: "Ayurvedic Blend" },
+            { name: "Product 13", price: "Ayurvedic Blend" },
+            { name: "Product 14", price: "Ayurvedic Blend" },
+            { name: "Product 15", price: "Ayurvedic Blend" },
+            { name: "Product 16", price: "Ayurvedic Blend" },
+            { name: "Product 17", price: "Ayurvedic Blend" },
+            { name: "Product 18", price: "Ayurvedic Blend" },
+            { name: "Product 19", price: "Ayurvedic Blend" },
+            { name: "Product 20", price: "Ayurvedic Blend" },
+            { name: "Product 21", price: "Ayurvedic Blend" },
+            { name: "Product 22", price: "Ayurvedic Blend" },
+            { name: "Product 23", price: "Ayurvedic Blend" },
+            { name: "Product 24", price: "Ayurvedic Blend" },
+            { name: "Product 25", price: "Ayurvedic Blend" },
+            { name: "Product 26", price: "Ayurvedic Blend" },
+            { name: "Product 27", price: "Ayurvedic Blend" },
+            { name: "Product 28", price: "Ayurvedic Blend" },
+            { name: "Product 29", price: "Ayurvedic Blend" },
+            { name: "Product 30", price: "Ayurvedic Blend" },
+            { name: "Product 31", price: "Ayurvedic Blend" },
+            { name: "Product 32", price: "Ayurvedic Blend" },
+            { name: "Product 33", price: "Ayurvedic Blend" },
+            { name: "Product 34", price: "Ayurvedic Blend" },
+            { name: "Product 35", price: "Ayurvedic Blend" },
+            { name: "Product 36", price: "Ayurvedic Blend" },
+            { name: "Product 37", price: "Ayurvedic Blend" },
+            { name: "Product 38", price: "Ayurvedic Blend" }
         ];
 
         function initShop() {
@@ -74,7 +100,7 @@
             products.forEach((p, i) => {
                 grid.innerHTML += `
                     <div class="product-card" onclick="openProduct(${i})">
-                        <img src="bottle${i+1}.jpg" alt="${p.name}">
+                        <img src="bottle${i+1}.jpg" onerror="this.src='https://via.placeholder.com/300?text=Pure+Ayurveda'">
                         <h3>${p.name}</h3>
                         <p>${p.price}</p>
                     </div>
@@ -86,50 +112,39 @@
             const p = products[i];
             const modal = document.getElementById('productModal');
             const box = document.getElementById('modalBody');
-            
-            // i+1 makes product 0 use image 1, product 1 use image 2
-            const imgNum = i + 1;
+            const n = i + 1;
 
             box.innerHTML = `
                 <div class="img-stack">
                     <div class="section-container">
-                        <div class="section-label">1. Product View</div>
-                        <img src="bottle${imgNum}.jpg" class="main-img" onerror="this.src='https://via.placeholder.com/500?text=Image+Coming+Soon'">
+                        <div class="section-label">1. PRODUCT VIEW</div>
+                        <img src="bottle${n}.jpg" class="main-img" onerror="this.src='https://via.placeholder.com/500?text=Product+Image'">
                     </div>
-                    
                     <div class="section-container">
-                        <div class="section-label">2. Key Benefits</div>
-                        <img src="desc${imgNum}.jpg" class="main-img" onerror="this.style.display='none'">
+                        <div class="section-label">2. KEY BENEFITS</div>
+                        <img src="desc${n}.jpg" class="main-img" onerror="this.style.display='none'">
                     </div>
-                    
                     <div class="section-container">
-                        <div class="section-label">3. Ayurvedic Origins</div>
-                        <img src="herb${imgNum}.jpg" class="main-img" onerror="this.style.display='none'">
+                        <div class="section-label">3. HERB MATRIX</div>
+                        <img src="herb${n}.jpg" class="main-img" onerror="this.style.display='none'">
                     </div>
                 </div>
-
                 <div class="buy-bar">
-                    <div>
-                        <h2>${p.name}</h2>
-                        <span style="font-size: 12px; color: #d4af37;">Pure Ayurveda Certified</span>
-                    </div>
-                    <button class="buy-btn" onclick="alert('Order Feature Coming Soon!')">BUY NOW</button>
+                    <div><h2>${p.name}</h2><small>Pure Ayurveda</small></div>
+                    <button class="buy-btn" onclick="alert('Added to Cart')">BUY NOW</button>
                 </div>
             `;
             modal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Stop background scrolling
+            document.body.style.overflow = 'hidden';
+            history.pushState({modal:true}, ""); 
         }
 
         function closeModal() {
             document.getElementById('productModal').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Re-enable scrolling
+            document.body.style.overflow = 'auto';
         }
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('productModal');
-            if (event.target == modal) closeModal();
-        }
-
+        window.onpopstate = function() { closeModal(); };
         initShop();
     </script>
 </body>
