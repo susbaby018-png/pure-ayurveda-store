@@ -3,99 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pure Ayurveda | Official Store</title>
+    <title>Pure Ayurveda | Heritage Male Wellness</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gold: #d4af37;
-            --dark-green: #0a1a0f;
-            --glass: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(212, 175, 55, 0.3);
-        }
+        :root { --gold: #d4af37; --dark: #050a06; --glass: rgba(255, 255, 255, 0.03); }
+        body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: var(--dark); color: white; scroll-behavior: smooth; overflow-x: hidden; }
 
-        body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: #050a06; color: white; scroll-behavior: smooth; }
-
-        /* Floating Transparent Header */
-        .header-panel {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 1000px; height: 60px;
-            background: rgba(10, 26, 15, 0.7); backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border); border-radius: 100px;
+        /* Functional Glass Header */
+        header {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(5, 10, 6, 0.8); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 25px; z-index: 1000; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 15px 5%; box-sizing: border-box;
         }
-        .logo-small { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; letter-spacing: 1px; }
-        .logo-small span { color: var(--gold); }
-        
-        .nav-items { display: flex; gap: 15px; }
-        .nav-items a { 
-            color: white; text-decoration: none; font-size: 11px; 
-            text-transform: uppercase; letter-spacing: 1px; font-weight: 400;
-            transition: 0.3s; padding: 8px 12px; border-radius: 20px;
-        }
-        .nav-items a:hover { background: var(--glass); color: var(--gold); }
-        .nav-items a.active { border: 1px solid var(--gold); color: var(--gold); }
+        .logo { font-family: 'Playfair Display', serif; font-size: 18px; letter-spacing: 2px; font-weight: 700; }
+        .logo span { color: var(--gold); }
+
+        nav { display: flex; gap: 15px; }
+        nav a { color: white; text-decoration: none; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; padding: 8px 12px; border-radius: 4px; transition: 0.3s; }
+        nav a.active { background: var(--gold); color: black; font-weight: 600; }
+        nav a:hover { color: var(--gold); }
 
         /* Hero Section */
         .hero {
             height: 100vh; width: 100%;
-            background: linear-gradient(rgba(10, 26, 15, 0.85), rgba(5, 10, 6, 1)), 
-                        url('https://images.unsplash.com/photo-1540324155974-7523202daa3f?q=80&w=1915&auto=format&fit=crop'); 
+            background: linear-gradient(rgba(5, 10, 6, 0.7), rgba(5, 10, 6, 1)), 
+                        url('https://images.unsplash.com/photo-1543363136-3fdb62e11be5?q=80&w=2000');
             background-size: cover; background-position: center;
             display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
         }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(35px, 8vw, 70px); font-style: italic; margin: 0; line-height: 1; }
+        .hero p { font-size: 14px; opacity: 0.6; margin: 20px 0 40px; letter-spacing: 1px; }
+        .btn { background: var(--gold); color: black; padding: 18px 50px; text-decoration: none; font-weight: 700; font-size: 12px; letter-spacing: 2px; }
 
-        .hero h1 { 
-            font-family: 'Playfair Display', serif; font-size: clamp(38px, 12vw, 80px); 
-            margin: 0; line-height: 1; font-style: italic; color: white;
-        }
-        .hero p { 
-            font-size: 14px; max-width: 300px; margin: 25px 0; 
-            opacity: 0.7; line-height: 1.6; letter-spacing: 0.5px;
-        }
-
-        .main-cta {
-            background: var(--gold); color: #000; padding: 18px 50px; 
-            text-decoration: none; font-weight: 700; border-radius: 2px; 
-            letter-spacing: 2px; font-size: 11px; transition: 0.3s;
-            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
-        }
-        .main-cta:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3); }
-
-        /* All-In-One Quick Links */
-        .quick-access {
-            position: absolute; bottom: 40px; width: 100%;
-            display: flex; justify-content: center; gap: 40px; opacity: 0.6;
-        }
-        .q-link { text-decoration: none; color: white; font-size: 10px; letter-spacing: 1px; display: flex; flex-direction: column; align-items: center; }
-
-        /* Content Section */
-        .section-tag { color: var(--gold); text-transform: uppercase; letter-spacing: 4px; font-size: 10px; margin-bottom: 20px; display: block; text-align: center;}
-
+        /* Content Section to allow scrolling */
+        .scroll-section { padding: 100px 10%; background: var(--dark); text-align: center; border-top: 1px solid var(--glass); }
+        .scroll-section h2 { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--gold); }
+        
+        footer { padding: 50px; text-align: center; font-size: 10px; opacity: 0.3; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
-    <header class="header-panel">
-        <div class="logo-small">PURE <span>AYURVEDA</span></div>
-        <nav class="nav-items">
-            <a href="shop.html" class="active">Shop</a>
-            <a href="#">Track Order</a>
-            <a href="#">About</a>
-            <a href="#">Support</a>
+    <header>
+        <div class="logo">PURE <span>AYURVEDA</span></div>
+        <nav>
+            <a href="index.html" class="active">Home</a>
+            <a href="shop.html">Shop</a>
+            <a href="track.html">Track</a>
+            <a href="about.html">About</a>
         </nav>
     </header>
 
     <section class="hero">
-        <span class="section-tag">Premium Male Wellness</span>
         <h1>Pure Wisdom.<br>Dark Potency.</h1>
-        <p>Harnessing ancient forest roots to deliver modern physical excellence. 100% Organic certified.</p>
-        <a href="shop.html" class="main-cta">START YOUR JOURNEY</a>
-
-        <div class="quick-access">
-            <a href="#about" class="q-link">SCROLL TO DISCOVER</a>
-        </div>
+        <p>REDEFINING MALE VITALITY SINCE 1997</p>
+        <a href="shop.html" class="btn">START YOUR JOURNEY</a>
     </section>
+
+    <section class="scroll-section">
+        <h2>The Gold Standard</h2>
+        <p style="opacity: 0.7; max-width: 600px; margin: 20px auto;">We don't just make supplements. We engineer cellular transformations using ancient forest roots and 29 years of clinical heritage.</p>
+    </section>
+
+    <footer>&copy; 2026 PURE AYURVEDA RETAILS | TRADITION OF EXCELLENCE</footer>
 
 </body>
 </html>
