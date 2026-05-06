@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Package</title>
+    <style>
+        body { background: #050a06; color: white; font-family: 'Poppins', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .track-box { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 8px; text-align: center; border: 1px solid #d4af37; width: 90%; max-width: 400px; }
+        input { width: 100%; padding: 15px; margin: 20px 0; background: #000; border: 1px solid #333; color: white; box-sizing: border-box; }
+        button { background: #d4af37; color: black; border: none; padding: 15px 30px; width: 100%; font-weight: 700; cursor: pointer; }
+        a { color: #d4af37; text-decoration: none; font-size: 12px; display: block; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="track-box">
+        <h2 style="font-family:serif">Package Tracking</h2>
+        <p style="font-size: 12px; opacity: 0.6;">Enter your Order ID to see live shipping status.</p>
+        <input type="text" placeholder="Order ID (e.g. #PA97001)">
+        <button onclick="alert('Searching Heritage Database...')">TRACK NOW</button>
+        <a href="index.html">← Back to Home</a>
+    </div>
+</body>
+</html>
