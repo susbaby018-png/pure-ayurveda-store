@@ -12,10 +12,11 @@
         .product-card { 
             background: white; border-radius: 12px; overflow: hidden; 
             box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; padding-bottom: 12px;
+            border: 1px solid #eee;
         }
         .product-card img { width: 100%; height: auto; aspect-ratio: 1/1; object-fit: cover; }
-        .product-card h3 { font-size: 0.85rem; margin: 8px 5px 2px; color: #2c3e50; }
-        .product-card p { font-size: 0.7rem; color: #d4af37; font-weight: bold; margin: 0; }
+        .product-card h3 { font-size: 0.85rem; margin: 8px 5px 2px; color: #2c3e50; min-height: 2.2em; display: flex; align-items: center; justify-content: center; }
+        .product-card p { font-size: 0.8rem; color: #d4af37; font-weight: bold; margin: 5px 0; }
 
         .modal { 
             display: none; position: fixed; z-index: 1000; left: 0; top: 0; 
@@ -23,12 +24,12 @@
         }
         .modal-content { 
             background: #fff; margin: 0 auto; width: 100%; max-width: 500px; 
-            min-height: 100%; position: relative; padding-bottom: 90px;
+            min-height: 100%; position: relative; padding-bottom: 100px;
         }
         .close-btn { 
             position: fixed; right: 15px; top: 15px; font-size: 30px; 
             color: #333; background: white; border-radius: 50%; width: 40px; 
-            height: 40px; line-height: 38px; text-align: center; z-index: 1010;
+            height: 40px; line-height: 38px; text-align: center; z-index: 1010; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .section-container { padding: 15px 15px 0; }
@@ -54,53 +55,55 @@
 
     <script>
         const products = [
-            { name: "Vajri-Force 9X", price: "Premium Vigor" },
-            { name: "Ojas Aura Gold", price: "Luxury Rasayana" },
-            { name: "Kamadeva Flux", price: "Vitality Formula" },
-            { name: "Saptadhatri Vital", price: "Tissue Rejuvenator" },
-            { name: "Stambhan 100", price: "Endurance Blend" },
-            { name: "Urja-Max Resin", price: "Pure Shilajit Base" },
-            { name: "Veerya-Pushti Plus", price: "Strength Tonic" },
-            { name: "Nagarjuna Nerve Oil", price: "External Vitality" },
-            { name: "Ananda Bliss Caps", price: "Mental Calm" },
-            { name: "Agni-Veda Fire", price: "Metabolic Vigor" },
-            { name: "Kasturi-Balam", price: "Elite Performance" },
-            { name: "Yuvana Eternal", price: "Anti-Aging Rasayana" },
-            { name: "Tantra-Flow 360", price: "Balanced Energy" },
-            { name: "Shakti-Sutra 10", price: "Potent Extract" },
-            { name: "Prana-Vigor Mint", price: "Refreshing Vitality" },
-            { name: "Dhatu-Genic", price: "Cellular Support" },
-            { name: "Soma-Nectar Drops", price: "Liquid Essence" },
-            { name: "Vayu-Shanti Calm", price: "Nervine Tonic" },
-            { name: "Maha-Vajra Tablet", price: "Ultimate Strength" },
-            { name: "Vajikarana Gold", price: "Royal Selection" },
-            // Products 21-38 (Expanding the list as requested)
-            { name: "Ojas Elite 21", price: "Limited Series" },
-            { name: "Ojas Elite 22", price: "Limited Series" },
-            { name: "Ojas Elite 23", price: "Limited Series" },
-            { name: "Ojas Elite 24", price: "Limited Series" },
-            { name: "Ojas Elite 25", price: "Limited Series" },
-            { name: "Ojas Elite 26", price: "Limited Series" },
-            { name: "Ojas Elite 27", price: "Limited Series" },
-            { name: "Ojas Elite 28", price: "Limited Series" },
-            { name: "Ojas Elite 29", price: "Limited Series" },
-            { name: "Ojas Elite 30", price: "Limited Series" },
-            { name: "Ojas Elite 31", price: "Limited Series" },
-            { name: "Ojas Elite 32", price: "Limited Series" },
-            { name: "Ojas Elite 33", price: "Limited Series" },
-            { name: "Ojas Elite 34", price: "Limited Series" },
-            { name: "Ojas Elite 35", price: "Limited Series" },
-            { name: "Ojas Elite 36", price: "Limited Series" },
-            { name: "Ojas Elite 37", price: "Limited Series" },
-            { name: "Ojas Elite 38", price: "Limited Series" }
+            { name: "Vajri-Force 9X", price: "$149" },
+            { name: "Ojas Aura Gold", price: "$295" },
+            { name: "Kamadeva Flux", price: "$185" },
+            { name: "Saptadhatri Vital", price: "$110" },
+            { name: "Stambhan 100", price: "$165" },
+            { name: "Urja-Max Resin", price: "$220" },
+            { name: "Veerya-Pushti Plus", price: "$135" },
+            { name: "Nagarjuna Nerve Oil", price: "$105" },
+            { name: "Ananda Bliss Caps", price: "$115" },
+            { name: "Agni-Veda Fire", price: "$175" },
+            { name: "Kasturi-Balam", price: "$240" },
+            { name: "Yuvana Eternal", price: "$195" },
+            { name: "Tantra-Flow 360", price: "$155" },
+            { name: "Shakti-Sutra 10", price: "$180" },
+            { name: "Prana-Vigor Mint", price: "$120" },
+            { name: "Dhatu-Genic", price: "$145" },
+            { name: "Soma-Nectar Drops", price: "$210" },
+            { name: "Vayu-Shanti Calm", price: "$130" },
+            { name: "Maha-Vajra Tablet", price: "$275" },
+            { name: "Vajikarana Gold", price: "$260" },
+            { name: "Ati-Vira 500", price: "$190" },
+            { name: "Chandra-Bala", price: "$140" },
+            { name: "Surya-Tejas", price: "$160" },
+            { name: "Naga-Vajra", price: "$235" },
+            { name: "Rishi-Shakti", price: "$125" },
+            { name: "Devi-Pushpa", price: "$110" },
+            { name: "Brahma-Rasayana", price: "$185" },
+            { name: "Indra-Gopa", price: "$170" },
+            { name: "Siddha-Yoga 7", price: "$150" },
+            { name: "Kaya-Kalpa", price: "$280" },
+            { name: "Amrit-Varsha", price: "$225" },
+            { name: "Swarna-Bindu", price: "$250" },
+            { name: "Ratna-Prabha", price: "$270" },
+            { name: "Veda-Moola", price: "$135" },
+            { name: "Jeeva-Dhara", price: "$115" },
+            { name: "Ojas-Vardhak", price: "$145" },
+            { name: "Prana-Bindu", price: "$120" },
+            { name: "Vajra-Kavach", price: "$165" },
+            { name: "Akasha-Deep", price: "$195" },
+            { name: "Yogeshwar Elite", price: "$215" }
         ];
 
         function initShop() {
             const grid = document.getElementById('shopGrid');
             products.forEach((p, i) => {
+                const n = i + 1;
                 grid.innerHTML += `
                     <div class="product-card" onclick="openProduct(${i})">
-                        <img src="bottle${i+1}.jpg" onerror="this.src='https://via.placeholder.com/300?text=Pure+Ayurveda'">
+                        <img src="bottle${n}.jpg" onerror="this.src='https://via.placeholder.com/300?text=Pure+Ayurveda'">
                         <h3>${p.name}</h3>
                         <p>${p.price}</p>
                     </div>
@@ -118,7 +121,7 @@
                 <div class="img-stack">
                     <div class="section-container">
                         <div class="section-label">1. PRODUCT VIEW</div>
-                        <img src="bottle${n}.jpg" class="main-img" onerror="this.src='https://via.placeholder.com/500?text=Product+Image'">
+                        <img src="bottle${n}.jpg" class="main-img" onerror="this.src='https://via.placeholder.com/500?text=Premium+Collection'">
                     </div>
                     <div class="section-container">
                         <div class="section-label">2. KEY BENEFITS</div>
@@ -130,8 +133,8 @@
                     </div>
                 </div>
                 <div class="buy-bar">
-                    <div><h2>${p.name}</h2><small>Pure Ayurveda Certification</small></div>
-                    <button class="buy-btn" onclick="alert('Added to Cart')">BUY NOW</button>
+                    <div><h2>${p.name}</h2><p style="color:#d4af37; margin:0; font-weight:bold;">${p.price}</p></div>
+                    <button class="buy-btn" onclick="alert('Proceeding to Checkout for ${p.name}')">BUY NOW</button>
                 </div>
             `;
             modal.style.display = 'block';
